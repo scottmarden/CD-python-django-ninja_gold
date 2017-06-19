@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Ninja Gold!</title>
+	</head>
+	<body>
+		<div id="wrapper">
+			<div id="header">
+				<h3>Your gold: {{ gold }}</h3>
+				<form action="/reset" method="post">
+					{% csrf_token %}
+					<input type="submit" value="Reset the Game!" />
+				</form>
+				<hr />
+			</div>
+			<div id="locations">
+				<fieldset>
+					<legend>Farm:</legend>
+					<h3>Earns 10-20 gold</h3>
+					<form action="/process_gold" method="POST">
+						{% csrf_token %}
+						<input type="hidden" name="location" value="farm" />
+						<input type="submit" value="Visit Farm!" />
+					</form>
+				</fieldset>
+				<fieldset>
+					<legend>Cave:</legend>
+					<h3>Earns 5-10 gold</h3>
+					<form action="/process_gold" method="POST">
+						{% csrf_token %}
+						<input type="hidden" name="location" value="cave" />
+						<input type="submit" value="Visit Cave!" />
+					</form>
+				</fieldset>
+				<fieldset>
+					<legend>House:</legend>
+					<h3>Earns 2-5 gold</h3>
+					<form action="/process_gold" method="POST">
+						{% csrf_token %}
+						<input type="hidden" name="location" value="house" />
+						<input type="submit" value="Visit House!" />
+					</form>
+				</fieldset>
+				<fieldset>
+					<legend>Casino:</legend>
+					<h3>Earns/Loses 0-50 gold</h3>
+					<form action="/process_gold" method="POST">
+						{% csrf_token %}
+						<input type="hidden" name="location" value="casino" />
+						<input type="submit" value="Visit Casino!" />
+					</form>
+				</fieldset>
+			</div>
+			<div id="actions">
+				{% if activities %}
+					<fieldset>
+						<legend>Activity Log:</legend>
+							{% for activity in activities %}
+								<h4>{{ activity }}</h4>
+							{% endfor %}
+					</fieldset>
+				{% endif %}
+			</div>
+		</div>
+	</body>
+</html>
